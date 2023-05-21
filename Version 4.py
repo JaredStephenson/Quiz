@@ -1,0 +1,66 @@
+#Quiz Version 4 - Jared Stephenson
+from tkinter import *
+from tkinter import ttk, messagebox
+
+root = Tk()
+root.title("Quiz")
+root.geometry("400x200")
+
+i = 0
+score = 0
+
+def submit_button_function():
+    global i
+    global score
+    try:
+        if options_combobox.get() == answers[i]:
+            answer_label.configure(text="Correct")
+            i += 1
+            score += 1
+            options_combobox.configure(values=options[i])
+            question_label.configure(text=questions[i])
+            options_combobox.set("Choose an option.")
+        else:
+            answer_label.configure(text="Incorrect")
+            i += 1
+            options_combobox.configure(values=options[i])
+            question_label.configure(text=questions[i])
+            options_combobox.set("Choose an option.")
+    except IndexError:
+        messagebox.showinfo(title="Score", message=f"You scored {score}/5")
+        
+q1 = "Which company owns the video game Minecraft?"
+q2 = "Which company owns the video game Grand Theft Auto V?"
+q3 = "Which company owns the video game Rust?"
+q4 = "Which company owns the video game Counter Strike: Global Offensive?"
+q5 = "Which company owns the video game franchise Assassin's Creed?"
+        
+questions = [q1, q2, q3, q4, q5]
+        
+question_label = Label(root, text=questions[i])
+question_label.pack(padx=5, pady=5)
+
+answers = ["Microsoft", "Rockstar Games", "Facepunch Studios", "Valve", "Ubisoft"]
+
+q1_options = ["Microsoft", "Bethesda", "Square Enix"] 
+q2_options = ["Rockstar Games", "Epic Games", "Activision"]
+q3_options = ["Activison", "Facepunch Studios", "Valve"]
+q4_options = ["Valve", "Activison", "Bethesda"]
+q5_options = ["Rockstar Games", "Nintendo", "Ubisoft"]
+    
+options = [q1_options, q2_options, q3_options, q4_options, q5_options]
+options_combobox = ttk.Combobox(root, values=options[i])
+options_combobox.set("Choose an option.")
+options_combobox.pack(padx=5, pady=5)
+
+submit_button = Button(root, text="Submit", command=submit_button_function)
+submit_button.pack(padx=5, pady=5)
+
+answer_label = Label(root)
+answer_label.pack(padx=5, pady=5)
+
+
+
+root.mainloop()
+                   
+                   
